@@ -1,0 +1,66 @@
+# =====================
+# Node / Backend
+# =====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Logs
+logs
+*.log
+
+# =====================
+# MongoDB
+# =====================
+data/
+dump/
+
+# =====================
+# Build files
+# =====================
+dist/
+build/
+
+# =====================
+# React / Frontend
+# =====================
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+# =====================
+# OS files
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Editor / IDE
+# =====================
+.vscode/
+.idea/
+*.swp
+
+# =====================
+# Coverage / Tests
+# =====================
+coverage/
+
+# =====================
+# Uploads (multer / cloudinary temp)
+# =====================
+uploads/
+temp/
+
+# =====================
+# Cache
+# =====================
+.cache
+.parcel-cache
