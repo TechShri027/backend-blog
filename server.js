@@ -7,12 +7,12 @@ const authRoutes = require("./routes/authRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const path = require("path");
 const app=express()
-app.use(cors({
-  origin: [
-    "https://mernblogpanel.netlify.app",
-  ],
+app.use(cors(
+  {
+  origin: ["https://mernblogpanel.netlify.app"],
   credentials: true
-}));           
+}
+));           
 app.use(express.json()); 
 
 
