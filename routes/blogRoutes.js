@@ -1,44 +1,29 @@
 const express = require("express");
 const router = express.Router();
+const adminMiddleware = require("../middleware/adminMiddleware"); 
 const multer = require("multer");
-const adminMiddleware = require("../middleware/adminMiddleware");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary"); // your cloudinary config
 
-const {
-  createBlog,
-  getBlogs,
-  getBlogById,
-  likeBlog,
-  addComment,
-  deleteBlog
-} = require("../controllers/blogController");
+const { createBlog, getBlogs, getBlogById, likeBlog, addComment, deleteBlog } = require("../controllers/blogController");
 
-const fs = require("fs");
-
-// Ensure uploads directory exists
-const uploadDir = "uploads/";
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Configure Multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
+// Cloudinary storage
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "blogs",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
 });
 const upload = multer({ storage });
 
-// Routes
+// Public routes
 router.get("/", getBlogs);
 router.get("/:id", getBlogById);
 router.post("/:id/like", likeBlog);
 router.post("/:id/comment", addComment);
 
 // Admin routes
-// Consolidated POST / for creation. Removed /create duplicate.
 router.post("/", adminMiddleware, upload.single("image"), createBlog);
 router.delete("/:id", adminMiddleware, deleteBlog);
 
