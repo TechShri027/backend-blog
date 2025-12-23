@@ -12,6 +12,14 @@ const {
   deleteBlog
 } = require("../controllers/blogController");
 
+const fs = require("fs");
+
+// Ensure uploads directory exists
+const uploadDir = "uploads/";
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
