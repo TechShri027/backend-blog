@@ -97,4 +97,22 @@ exports.deleteBlog = async (req, res) => {
 };
 
 
+exports.createBlog = async (req, res) => {
+  try {
+    const { title, content } = req.body;
+
+    const imageUrl = req.file.path; 
+    const blog = await Blog.create({
+      title,
+      content,
+      image: imageUrl,
+    });
+
+    res.status(201).json(blog);
+  } catch (error) {
+    res.status(500).json({ message: "Blog creation failed" });
+  }
+};
+
+
 

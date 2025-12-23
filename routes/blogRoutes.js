@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const adminMiddleware = require("../middleware/adminMiddleware"); // admin check
+const adminMiddleware = require("../middleware/adminMiddleware"); 
+const upload = require("../middleware/upload");
+const { createBlog } = require("../controllers/blogController");
 
 const {
   createBlog,
@@ -32,5 +34,10 @@ router.post("/:id/comment", addComment);
 
 router.post("/", adminMiddleware, upload.single("image"), createBlog);
 router.delete("/:id", adminMiddleware, deleteBlog);
+
+
+
+
+router.post("/create", upload.single("image"), createBlog);
 
 module.exports = router;
